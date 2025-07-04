@@ -4,26 +4,30 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:neom_commons/core/data/implementations/subscription_controller.dart';
-import 'package:neom_commons/core/data/implementations/user_controller.dart';
-import 'package:neom_commons/core/domain/model/app_user.dart';
-import 'package:neom_commons/core/utils/app_color.dart';
-import 'package:neom_commons/core/utils/app_theme.dart';
-import 'package:neom_commons/core/utils/app_utilities.dart';
-import 'package:neom_commons/core/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_route_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_translation_constants.dart';
-import 'package:neom_commons/core/utils/constants/intl_countries_list.dart';
-import 'package:neom_commons/core/utils/constants/message_translation_constants.dart';
+import 'package:neom_commons/commons/ui/theme/app_color.dart';
+import 'package:neom_commons/commons/ui/theme/app_theme.dart';
+import 'package:neom_commons/commons/utils/app_alerts.dart';
+import 'package:neom_commons/commons/utils/app_utilities.dart';
+import 'package:neom_commons/commons/utils/constants/app_page_id_constants.dart';
+import 'package:neom_commons/commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/commons/utils/constants/intl_countries_list.dart';
+import 'package:neom_commons/commons/utils/constants/message_translation_constants.dart';
+import 'package:neom_core/core/app_config.dart';
+import 'package:neom_core/core/data/implementations/subscription_controller.dart';
+import 'package:neom_core/core/data/implementations/user_controller.dart';
+import 'package:neom_core/core/domain/model/app_user.dart';
+import 'package:neom_core/core/utils/constants/app_route_constants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class AccountSettingsController extends GetxController {
+import '../domain/use_cases/account_settings_service.dart';
+
+class AccountSettingsController extends GetxController implements AccountSettingsService {
 
   UserController userController = Get.find<UserController>();
   SubscriptionController subscriptionController = Get.put(SubscriptionController());
   AppUser user = AppUser();
 
-  bool isLoading = true;
+  RxBool isLoading = true.obs;
 
   final Rx<Country> phoneCountry = IntlPhoneConstants.availableCountries[0].obs;
   TextEditingController controllerPhone = TextEditingController();
@@ -31,7 +35,7 @@ class AccountSettingsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    AppUtilities.logger.d("AccountSettings Controller Init for userId ${userController.user.id}");
+    AppConfig.logger.d("AccountSettings Controller Init for userId ${userController.user.id}");
     user = userController.user;
     controllerPhone.text = user.phoneNumber;
   }
@@ -39,14 +43,16 @@ class AccountSettingsController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    AppUtilities.logger.d("AccountSettings Controller Ready");
-    isLoading = false;
+    AppConfig.logger.d("AccountSettings Controller Ready");
+    isLoading.value = false;
   }
 
+  @override
   void getSubscriptionAlert(BuildContext context) {
-    subscriptionController.getSubscriptionAlert(context, AppRouteConstants.accountSettings);
+    AppAlerts.getSubscriptionAlert(subscriptionController, context, AppRouteConstants.accountSettings);
   }
 
+  @override
   Future<void> updatePhone(BuildContext context) async {
     String validateMsg = "";
     String phoneNumberText = controllerPhone.text;
@@ -73,13 +79,14 @@ class AccountSettingsController extends GetxController {
             message: validateMsg);
       }
     } catch(e) {
-      AppUtilities.logger.e(e.toString());
+      AppConfig.logger.e(e.toString());
     }
     update([AppPageIdConstants.accountSettings]);
   }
 
+  @override
   Future<bool?> getUpdatePhoneAlert(BuildContext context) {
-    AppUtilities.logger.d("getUpdatePhoneAlert");
+    AppConfig.logger.d("getUpdatePhoneAlert");
     return Alert(
         context: context,
         style: AlertStyle(
@@ -112,6 +119,7 @@ class AccountSettingsController extends GetxController {
     ).show();
   }
 
+  @override
   Widget buildPhoneField() {
     return Container(
         padding: const EdgeInsets.only(

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:neom_commons/core/app_flavour.dart';
-import 'package:neom_commons/core/ui/widgets/app_circular_progress_indicator.dart';
-import 'package:neom_commons/core/ui/widgets/appbar_child.dart';
-import 'package:neom_commons/core/ui/widgets/header_widget.dart';
-import 'package:neom_commons/core/ui/widgets/title_subtitle_row.dart';
-import 'package:neom_commons/core/utils/app_color.dart';
-import 'package:neom_commons/core/utils/app_theme.dart';
-import 'package:neom_commons/core/utils/constants/app_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_route_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_translation_constants.dart';
-import 'package:neom_commons/core/utils/core_utilities.dart';
-import 'package:neom_commons/core/utils/enums/app_in_use.dart';
-import 'package:neom_commons/core/utils/enums/user_role.dart';
+import 'package:neom_commons/commons/app_flavour.dart';
+import 'package:neom_commons/commons/ui/theme/app_color.dart';
+import 'package:neom_commons/commons/ui/theme/app_theme.dart';
+import 'package:neom_commons/commons/ui/widgets/app_circular_progress_indicator.dart';
+import 'package:neom_commons/commons/ui/widgets/appbar_child.dart';
+import 'package:neom_commons/commons/ui/widgets/header_widget.dart';
+import 'package:neom_commons/commons/ui/widgets/title_subtitle_row.dart';
+import 'package:neom_commons/commons/utils/constants/app_page_id_constants.dart';
+import 'package:neom_commons/commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/commons/utils/external_utilities.dart';
+import 'package:neom_core/core/app_properties.dart';
+import 'package:neom_core/core/utils/constants/app_route_constants.dart';
+import 'package:neom_core/core/utils/enums/app_in_use.dart';
+import 'package:neom_core/core/utils/enums/user_role.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'app_settings_controller.dart';
+
+import 'settings_controller.dart';
 
 class SettingsPrivacyPage extends StatelessWidget {
 
@@ -24,15 +25,15 @@ class SettingsPrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AppSettingsController>(
+    return GetBuilder<SettingsController>(
       id: AppPageIdConstants.settingsPrivacy,
-      init: AppSettingsController(),
+      init: SettingsController(),
       builder: (_) => Scaffold(
-        appBar: AppBarChild(title: AppConstants.settingsPrivacy.tr),
+        appBar: AppBarChild(title: AppTranslationConstants.settingsPrivacy.tr),
         backgroundColor: AppColor.main50,
         body: Obx(()=>Container(
           decoration: AppTheme.appBoxDecoration,
-          child: _.isLoading ? Container(
+          child: _.isLoading.value ? Container(
               decoration: AppTheme.appBoxDecoration,
               child: const AppCircularProgressIndicator()) :
           ListView(
@@ -67,7 +68,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   tooltip: AppTranslationConstants.gmail.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    final email = Uri.encodeFull(AppFlavour.getEmail());
+                                    final email = Uri.encodeFull(AppProperties.getEmail());
                                     final subject = Uri.encodeFull('Regarding Mobile App');
                                     final uri = Uri.parse(
                                       'mailto:$email?subject=$subject',
@@ -89,7 +90,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   tooltip: AppTranslationConstants.whatsContact.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    CoreUtilities.launchWhatsappURL(AppFlavour.getWhatsappBusinessNumber(), AppTranslationConstants.hello.tr);
+                                    ExternalUtilities.launchWhatsappURL(AppProperties.getWhatsappBusinessNumber(), AppTranslationConstants.hello.tr);
                                   },
                                 ),
                                 Text(AppTranslationConstants.whatsapp.tr,),
@@ -104,7 +105,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   tooltip: AppTranslationConstants.instagram.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    launchUrl(Uri.parse(AppFlavour.getInstagram(),),
+                                    launchUrl(Uri.parse(AppProperties.getInstagram(),),
                                       mode: LaunchMode.externalApplication,
                                     );
                                   },
@@ -124,7 +125,7 @@ class SettingsPrivacyPage extends StatelessWidget {
             ),
             if(AppFlavour.appInUse != AppInUse.c) TitleSubtitleRow(AppTranslationConstants.joinWhats.tr, subtitle: AppTranslationConstants.joinWhatsSub.tr,
             onPressed: () {
-              AppFlavour.appInUse == AppInUse.g ? showModalBottomSheet(
+              showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
                     return SizedBox(
@@ -141,10 +142,10 @@ class SettingsPrivacyPage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(FontAwesomeIcons.whatsapp,),
                                   iconSize: 40,
-                                  tooltip: AppTranslationConstants.whatsRock.tr,
+                                  tooltip: AppTranslationConstants.whatsCommunity.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    launchUrl(Uri.parse('https://chat.whatsapp.com/FX7m5OJrtodLePy9YtfHo5',),
+                                    launchUrl(Uri.parse(AppProperties.getMainWhatsGroupUrl()),
                                       mode: LaunchMode.externalApplication,
                                     );
                                   },
@@ -163,7 +164,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   tooltip: AppTranslationConstants.whatsCommunity.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    launchUrl(Uri.parse('https://chat.whatsapp.com/EtXFBdRIWFf00rDmYNen3n',),
+                                    launchUrl(Uri.parse(AppProperties.getSecondaryWhatsGroupUrl()),
                                       mode: LaunchMode.externalApplication,
                                     );
                                   },
@@ -178,9 +179,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                       ),
                     );
                   },
-                ) : launchUrl(Uri.parse('https://chat.whatsapp.com/HVE32LpAFyi4jABuBTV2hB',),
-                mode: LaunchMode.externalApplication,
-              );
+                );
               },
             ),
             //TODO

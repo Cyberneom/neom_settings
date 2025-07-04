@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:neom_commons/core/app_flavour.dart';
-import 'package:neom_commons/core/ui/widgets/appbar_child.dart';
-import 'package:neom_commons/core/ui/widgets/header_widget.dart';
-import 'package:neom_commons/core/ui/widgets/title_subtitle_row.dart';
-import 'package:neom_commons/core/utils/app_color.dart';
-import 'package:neom_commons/core/utils/app_theme.dart';
-import 'package:neom_commons/core/utils/constants/app_constants.dart';
-import 'package:neom_commons/core/utils/constants/app_translation_constants.dart';
-import 'package:neom_commons/core/utils/constants/url_constants.dart';
+import 'package:neom_commons/commons/ui/theme/app_color.dart';
+import 'package:neom_commons/commons/ui/theme/app_theme.dart';
+import 'package:neom_commons/commons/ui/widgets/appbar_child.dart';
+import 'package:neom_commons/commons/ui/widgets/header_widget.dart';
+import 'package:neom_commons/commons/ui/widgets/title_subtitle_row.dart';
+import 'package:neom_commons/commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_core/core/app_properties.dart';
 
-import 'app_settings_controller.dart';
+import 'settings_controller.dart';
 
 class AboutPage extends StatelessWidget {
 
@@ -18,7 +16,7 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AppSettingsController>(
+    return GetBuilder<SettingsController>(
       builder: (_) => Scaffold(
         backgroundColor: AppColor.main50,
         appBar: AppBarChild(title: AppTranslationConstants.aboutApp.tr),
@@ -35,29 +33,29 @@ class AboutPage extends StatelessWidget {
                 AppTranslationConstants.helpCenter.tr,
                 vPadding: 0,
                 showDivider: false,
-                url: AppFlavour.getWebContact(),
+                url: AppProperties.getWebContact(),
               ),
               HeaderWidget(AppTranslationConstants.websites.tr),
               TitleSubtitleRow(
-                  AppConstants.appTitle.tr,
+                  AppProperties.getAppName().tr,
                   showDivider: true,
-                  url: AppFlavour.getLandingPageUrl(),
+                  url: AppProperties.getLandingPageUrl(),
               ),
               TitleSubtitleRow(
-                  AppConstants.blog,
+                  AppTranslationConstants.blog,
                   showDivider: true,
-                  url: AppFlavour.getBlogUrl(),
+                  url: AppProperties.getBlogUrl(),
               ),
               HeaderWidget(AppTranslationConstants.developer.tr),
-              const TitleSubtitleRow(
-                AppConstants.github,
+              TitleSubtitleRow(
+                AppTranslationConstants.github,
                 showDivider: true,
-                url: UrlConstants.devGithub
+                url: AppProperties.getDevGithub()
               ),
-              const TitleSubtitleRow(
-                AppConstants.linkedin,
+              TitleSubtitleRow(
+                AppTranslationConstants.linkedin,
                 showDivider: true,
-                url: UrlConstants.devLinkedIn
+                url: AppProperties.getDevLinkedIn()
               ),
             ],
           ),
