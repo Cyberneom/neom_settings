@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 
 
-import 'package:neom_core/core/utils/constants/app_route_constants.dart';
+import 'package:neom_core/utils/constants/app_route_constants.dart';
+
 import 'ui/about_page.dart';
 import 'ui/account_settings_page.dart';
 import 'ui/blocked_profiles_page.dart';

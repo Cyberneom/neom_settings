@@ -1,2 +1,2 @@
 # neom_settings
-Home for Cyberneom
+Settings for Open Neom
