@@ -1,16 +1,16 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:neom_commons/utils/app_locale_utilities.dart';
 import 'package:neom_commons/utils/app_utilities.dart';
-import 'package:neom_commons/utils/constants/app_locale_constants.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
 import 'package:neom_core/app_config.dart';
 import 'package:neom_core/data/implementations/app_hive_controller.dart';
 import 'package:neom_core/data/implementations/geolocator_controller.dart';
 import 'package:neom_core/data/implementations/user_controller.dart';
 import 'package:neom_core/domain/repository/analytics_repository.dart';
-import 'package:neom_core/domain/repository/jobs_repository.dart';
+import 'package:neom_core/domain/repository/job_repository.dart';
 import 'package:neom_core/domain/use_cases/login_service.dart';
 import 'package:neom_core/utils/enums/app_in_use.dart';
 import 'package:neom_core/utils/enums/app_locale.dart';
@@ -22,7 +22,7 @@ class SettingsController extends GetxController implements SettingsService {
   final loginController = Get.find<LoginService>();
   final userController = Get.find<UserController>();
   final analyticsRepositoryImpl = Get.find<AnalyticsRepository>();
-  final jobsRepositoryImpl = Get.find<JobsRepository>();
+  final jobsRepositoryImpl = Get.find<JobRepository>();
 
   final RxBool isLoading = true.obs;
   final RxString newLanguage = "".obs;
@@ -34,7 +34,7 @@ class SettingsController extends GetxController implements SettingsService {
     super.onInit();
     AppConfig.logger.d("Settings Controller Init");
     await userController.getProfiles();
-    newLanguage.value = AppLocaleConstants.languageFromLocale(Get.locale!);
+    newLanguage.value = AppLocaleUtilities.languageFromLocale(Get.locale!);
     isLoading.value = false;
     locationPermission.value = await Geolocator.checkPermission();
   }
@@ -71,8 +71,8 @@ class SettingsController extends GetxController implements SettingsService {
         AppHiveController().updateLocale(appLocale.value);
       } else {
         AppUtilities.showSnackBar(
-          title: AppTranslationConstants.underConstruction.tr,
-          message: AppTranslationConstants.underConstructionMsg.tr,
+          title: CommonTranslationConstants.underConstruction.tr,
+          message: CommonTranslationConstants.underConstructionMsg.tr,
         );
       }
     } catch (e) {

@@ -9,9 +9,10 @@ import 'package:neom_commons/ui/theme/app_theme.dart';
 import 'package:neom_commons/utils/app_alerts.dart';
 import 'package:neom_commons/utils/app_utilities.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
 import 'package:neom_commons/utils/constants/intl_countries_list.dart';
-import 'package:neom_commons/utils/constants/message_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/message_translation_constants.dart';
 import 'package:neom_core/app_config.dart';
 import 'package:neom_core/data/implementations/subscription_controller.dart';
 import 'package:neom_core/data/implementations/user_controller.dart';
@@ -20,6 +21,7 @@ import 'package:neom_core/utils/constants/app_route_constants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../domain/use_cases/account_settings_service.dart';
+import '../utils/constants/setting_translation_constants.dart';
 
 class AccountSettingsController extends GetxController implements AccountSettingsService {
 
@@ -111,7 +113,7 @@ class AccountSettingsController extends GetxController implements AccountSetting
             onPressed: () async {
               await updatePhone(context);
             },
-            child: Text(AppTranslationConstants.confirmAndUpdate.tr,
+            child: Text(SettingTranslationConstants.confirmAndUpdate.tr,
               style: const TextStyle(fontSize: 15),
             ),
           ),
@@ -143,7 +145,7 @@ class AccountSettingsController extends GetxController implements AccountSetting
           pickerDialogStyle: PickerDialogStyle(
               backgroundColor: AppColor.getMain(),
               searchFieldInputDecoration: InputDecoration(
-                labelText: AppTranslationConstants.searchByCountryName.tr,
+                labelText: CommonTranslationConstants.searchByCountryName.tr,
               )
           ),
           dropdownTextStyle: const TextStyle(fontSize: 14),

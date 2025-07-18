@@ -7,7 +7,8 @@ import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/ui/widgets/header_widget.dart';
 import 'package:neom_commons/ui/widgets/title_subtitle_row.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
 import 'package:neom_core/app_config.dart';
 import 'package:neom_core/utils/constants/app_route_constants.dart';
 import 'package:neom_core/utils/enums/app_in_use.dart';
@@ -15,6 +16,7 @@ import 'package:neom_core/utils/enums/subscription_level.dart';
 import 'package:neom_core/utils/enums/subscription_status.dart';
 import 'package:neom_core/utils/enums/user_role.dart';
 
+import '../utils/constants/setting_translation_constants.dart';
 import 'account_settings_controller.dart';
 
 class AccountSettingsPage extends StatelessWidget {
@@ -26,13 +28,13 @@ class AccountSettingsPage extends StatelessWidget {
       id: AppPageIdConstants.accountSettings,
       init: AccountSettingsController(),
       builder: (_) => Scaffold(
-      appBar: AppBarChild(title: AppTranslationConstants.accountSettings.tr),
+      appBar: AppBarChild(title: SettingTranslationConstants.accountSettings.tr),
       backgroundColor: AppColor.main50,
       body: Container(
         decoration: AppTheme.appBoxDecoration,
         child: ListView(
         children: <Widget>[
-          HeaderWidget(AppTranslationConstants.loginAndSecurity.tr),
+          HeaderWidget(SettingTranslationConstants.loginAndSecurity.tr),
           TitleSubtitleRow(
             AppTranslationConstants.username.tr,
             subtitle: _.user.name,
@@ -40,7 +42,7 @@ class AccountSettingsPage extends StatelessWidget {
           const Divider(height: 0),
           if((_.user.userRole != UserRole.subscriber || kDebugMode) && AppConfig.instance.appInUse != AppInUse.c) TitleSubtitleRow(
             AppTranslationConstants.subscription.tr,
-            subtitle: (_.userController.userSubscription?.status == SubscriptionStatus.active) ? AppTranslationConstants.active.tr.capitalize : _.userController.subscriptionLevel == SubscriptionLevel.freeMonth ? AppTranslationConstants.testPeriod.tr : AppTranslationConstants.activateSubscription.tr,
+            subtitle: (_.userController.userSubscription?.status == SubscriptionStatus.active) ? AppTranslationConstants.active.tr.capitalize : _.userController.subscriptionLevel == SubscriptionLevel.freeMonth ? CommonTranslationConstants.testPeriod.tr : SettingTranslationConstants.activateSubscription.tr,
             onPressed: () => _.user.subscriptionId.isEmpty ? _.getSubscriptionAlert(context) : (),
           ),
           TitleSubtitleRow(
@@ -54,14 +56,14 @@ class AccountSettingsPage extends StatelessWidget {
           ),
           const Divider(height: 0),
           if(_.userController.userSubscription?.status == SubscriptionStatus.active)
-            TitleSubtitleRow(AppTranslationConstants.cancelSubscription.tr,  textColor: AppColor.ceriseRed,
+            TitleSubtitleRow(SettingTranslationConstants.cancelSubscription.tr,  textColor: AppColor.ceriseRed,
               onPressed: () {
                 showDialog(
                     context: context,
                     builder: (context) {
                       return SimpleDialog(
                         backgroundColor: AppColor.getMain(),
-                        title: Text(AppTranslationConstants.cancelThisSubscription.tr,),
+                        title: Text(SettingTranslationConstants.cancelThisSubscription.tr,),
                         children: <Widget>[
                           SimpleDialogOption(
                             child: Text(
@@ -86,14 +88,14 @@ class AccountSettingsPage extends StatelessWidget {
                 },
             ),
           if(_.user.profiles.length > 1)
-            TitleSubtitleRow(AppTranslationConstants.removeProfile.tr,  textColor: AppColor.ceriseRed,
+            TitleSubtitleRow(CommonTranslationConstants.removeProfile.tr,  textColor: AppColor.ceriseRed,
               onPressed: () {
                 showDialog(
                     context: context,
                     builder: (context) {
                       return SimpleDialog(
                         backgroundColor: AppColor.main50,
-                        title: Text(AppTranslationConstants.removeThisAccount.tr),
+                        title: Text(SettingTranslationConstants.removeThisAccount.tr),
                         children: <Widget>[
                           SimpleDialogOption(
                             child: Text(
@@ -119,14 +121,14 @@ class AccountSettingsPage extends StatelessWidget {
 
               },
             ),
-          TitleSubtitleRow(AppTranslationConstants.removeAccount.tr,  textColor: AppColor.ceriseRed,
+          TitleSubtitleRow(SettingTranslationConstants.removeAccount.tr,  textColor: AppColor.ceriseRed,
             onPressed: (){
             showDialog(
                 context: context,
                 builder: (context) {
                   return SimpleDialog(
                     backgroundColor: AppColor.getMain(),
-                    title: Text(AppTranslationConstants.removeThisAccount.tr),
+                    title: Text(SettingTranslationConstants.removeThisAccount.tr),
                     children: <Widget>[
                       SimpleDialogOption(
                         child: Text(

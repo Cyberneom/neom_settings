@@ -8,7 +8,8 @@ import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/ui/widgets/header_widget.dart';
 import 'package:neom_commons/ui/widgets/title_subtitle_row.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
 import 'package:neom_commons/utils/external_utilities.dart';
 import 'package:neom_core/app_config.dart';
 import 'package:neom_core/app_properties.dart';
@@ -17,6 +18,7 @@ import 'package:neom_core/utils/enums/app_in_use.dart';
 import 'package:neom_core/utils/enums/user_role.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/constants/setting_translation_constants.dart';
 import 'settings_controller.dart';
 
 class SettingsPrivacyPage extends StatelessWidget {
@@ -29,7 +31,7 @@ class SettingsPrivacyPage extends StatelessWidget {
       id: AppPageIdConstants.settingsPrivacy,
       init: SettingsController(),
       builder: (_) => Scaffold(
-        appBar: AppBarChild(title: AppTranslationConstants.settingsPrivacy.tr),
+        appBar: AppBarChild(title: CommonTranslationConstants.settingsPrivacy.tr),
         backgroundColor: AppColor.main50,
         body: Obx(()=>Container(
           decoration: AppTheme.appBoxDecoration,
@@ -39,14 +41,14 @@ class SettingsPrivacyPage extends StatelessWidget {
           ListView(
           children: <Widget>[
             HeaderWidget(_.userController.user.name.capitalize),
-            TitleSubtitleRow(AppTranslationConstants.account.tr, navigateTo: AppRouteConstants.settingsAccount),
-            TitleSubtitleRow(AppTranslationConstants.privacyAndPolicy.tr, navigateTo: AppRouteConstants.privacyAndTerms),
-            TitleSubtitleRow(AppTranslationConstants.contentPreferences.tr, navigateTo: AppRouteConstants.contentPreferences),
+            TitleSubtitleRow(SettingTranslationConstants.account.tr, navigateTo: AppRouteConstants.settingsAccount),
+            TitleSubtitleRow(SettingTranslationConstants.privacyAndPolicy.tr, navigateTo: AppRouteConstants.privacyAndTerms),
+            TitleSubtitleRow(SettingTranslationConstants.contentPreferences.tr, navigateTo: AppRouteConstants.contentPreferences),
             HeaderWidget(AppTranslationConstants.general.tr.capitalize, secondHeader: true,),
-            TitleSubtitleRow(AppTranslationConstants.aboutApp.tr, navigateTo: AppRouteConstants.about),
+            TitleSubtitleRow(CommonTranslationConstants.aboutApp.tr, navigateTo: AppRouteConstants.about),
             // if(AppConfig.instance.appInUse == AppInUse.c) TitleSubtitleRow(AppTranslationConstants.likeMyWork.tr, subtitle: AppTranslationConstants.buyCoffee.tr,
             //   onPressed: () => launchUrl(Uri.parse(AppFlavour.getBuyMeACoffeeURL(),),)),
-            TitleSubtitleRow(AppTranslationConstants.contactUs.tr, subtitle: AppTranslationConstants.contactUsSub.tr,
+            TitleSubtitleRow(AppTranslationConstants.contactUs.tr, subtitle: SettingTranslationConstants.contactUsSub.tr,
                 onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -65,7 +67,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(FontAwesomeIcons.envelope,),
                                   iconSize: 40,
-                                  tooltip: AppTranslationConstants.gmail.tr,
+                                  tooltip: SettingTranslationConstants.gmail.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
                                     final email = Uri.encodeFull(AppProperties.getEmail());
@@ -78,7 +80,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                Text(AppTranslationConstants.gmail.tr,),
+                                Text(SettingTranslationConstants.gmail.tr,),
                               ],
                             ),
                             Column(
@@ -87,13 +89,13 @@ class SettingsPrivacyPage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(FontAwesomeIcons.whatsapp,),
                                   iconSize: 40,
-                                  tooltip: AppTranslationConstants.whatsContact.tr,
+                                  tooltip: SettingTranslationConstants.whatsContact.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
                                     ExternalUtilities.launchWhatsappURL(AppProperties.getWhatsappBusinessNumber(), AppTranslationConstants.hello.tr);
                                   },
                                 ),
-                                Text(AppTranslationConstants.whatsapp.tr,),
+                                Text(SettingTranslationConstants.whatsapp.tr,),
                               ],
                             ),
                             Column(
@@ -111,7 +113,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   },
                                 ),
                                 Text(
-                                  AppTranslationConstants.insta.tr,
+                                  SettingTranslationConstants.insta.tr,
                                 ),
                               ],
                             ),
@@ -123,7 +125,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                 );
               },
             ),
-            if(AppConfig.instance.appInUse != AppInUse.c) TitleSubtitleRow(AppTranslationConstants.joinWhats.tr, subtitle: AppTranslationConstants.joinWhatsSub.tr,
+            if(AppConfig.instance.appInUse != AppInUse.c) TitleSubtitleRow(SettingTranslationConstants.joinWhats.tr, subtitle: SettingTranslationConstants.joinWhatsSub.tr,
             onPressed: () {
               showModalBottomSheet(
                   context: context,
@@ -142,7 +144,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(FontAwesomeIcons.whatsapp,),
                                   iconSize: 40,
-                                  tooltip: AppTranslationConstants.whatsCommunity.tr,
+                                  tooltip: SettingTranslationConstants.whatsCommunity.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
                                     launchUrl(Uri.parse(AppProperties.getMainWhatsGroupUrl()),
@@ -151,7 +153,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                   },
                                 ),
                                 Text(
-                                  AppTranslationConstants.whatsRock.tr,
+                                  SettingTranslationConstants.whatsRock.tr,
                                 ),
                               ],
                             ),
@@ -161,7 +163,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(FontAwesomeIcons.whatsapp,),
                                   iconSize: 40,
-                                  tooltip: AppTranslationConstants.whatsCommunity.tr,
+                                  tooltip: SettingTranslationConstants.whatsCommunity.tr,
                                   onPressed: () {
                                     Navigator.pop(context);
                                     launchUrl(Uri.parse(AppProperties.getSecondaryWhatsGroupUrl()),
@@ -169,9 +171,7 @@ class SettingsPrivacyPage extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                Text(
-                                  AppTranslationConstants.whatsCommunity.tr,
-                                ),
+                                Text(SettingTranslationConstants.whatsCommunity.tr,),
                               ],
                             ),
                           ],
@@ -186,20 +186,20 @@ class SettingsPrivacyPage extends StatelessWidget {
             if(_.userController.user.userRole != UserRole.subscriber)
             Column(
               children: [
-                HeaderWidget(AppTranslationConstants.adminCenter.tr, secondHeader: true),
-                TitleSubtitleRow(AppTranslationConstants.createCoupon.tr, navigateTo: AppRouteConstants.createCoupon),
-                TitleSubtitleRow(AppTranslationConstants.createSponsor.tr, navigateTo: AppRouteConstants.createSponsor),
-                TitleSubtitleRow(AppTranslationConstants.usersDirectory.tr, navigateTo: AppRouteConstants.directory, navigateArguments: const [true],),
-                TitleSubtitleRow(AppTranslationConstants.seeAnalytics.tr, navigateTo: AppRouteConstants.analytics),
+                HeaderWidget(SettingTranslationConstants.adminCenter.tr, secondHeader: true),
+                TitleSubtitleRow(CommonTranslationConstants.createCoupon.tr, navigateTo: AppRouteConstants.createCoupon),
+                TitleSubtitleRow(CommonTranslationConstants.createSponsor.tr, navigateTo: AppRouteConstants.createSponsor),
+                TitleSubtitleRow(CommonTranslationConstants.usersDirectory.tr, navigateTo: AppRouteConstants.directory, navigateArguments: const [true],),
+                TitleSubtitleRow(SettingTranslationConstants.seeAnalytics.tr, navigateTo: AppRouteConstants.analytics),
                 if(_.userController.user.userRole == UserRole.superAdmin)
                   Column(
                     children: [
-                      TitleSubtitleRow(AppTranslationConstants.runAnalyticsJobs.tr, onPressed: _.runAnalyticJobs),
-                      TitleSubtitleRow(AppTranslationConstants.runProfileJobs.tr, onPressed: _.runProfileJobs),
+                      TitleSubtitleRow(SettingTranslationConstants.runAnalyticsJobs.tr, onPressed: _.runAnalyticJobs),
+                      TitleSubtitleRow(SettingTranslationConstants.runProfileJobs.tr, onPressed: _.runProfileJobs),
                   ],),
               ],
             ),
-            TitleSubtitleRow("", showDivider: false, vPadding: 10, subtitle: AppTranslationConstants.settingPrivacyMsg.tr),
+            TitleSubtitleRow("", showDivider: false, vPadding: 10, subtitle: SettingTranslationConstants.settingPrivacyMsg.tr),
           ],
         ),
         ),),

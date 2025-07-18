@@ -6,10 +6,13 @@ import 'package:neom_commons/ui/theme/app_theme.dart';
 import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/utils/app_utilities.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
 import 'package:neom_core/data/implementations/mate_controller.dart';
 import 'package:neom_core/domain/model/app_profile.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+
+import '../utils/constants/setting_translation_constants.dart';
 
 class BlockedProfilesPage extends StatelessWidget {
   const BlockedProfilesPage({super.key});
@@ -22,7 +25,7 @@ class BlockedProfilesPage extends StatelessWidget {
       builder: (_) => Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
-        child: AppBarChild(title: AppTranslationConstants.blockedProfiles.tr)
+        child: AppBarChild(title: SettingTranslationConstants.blockedProfiles.tr)
       ),
       backgroundColor: AppColor.main50,
       body: Container(
@@ -43,10 +46,10 @@ class BlockedProfilesPage extends StatelessWidget {
                           backgroundColor: AppColor.main50,
                           titleStyle: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        title: AppTranslationConstants.unblockProfile.tr,
+                        title: CommonTranslationConstants.unblockProfile.tr,
                         content: Column(
                           children: [
-                            Text(AppTranslationConstants.unblockProfileMsg.tr,
+                            Text(SettingTranslationConstants.unblockProfileMsg.tr,
                               style: const TextStyle(fontSize: 15),
                             ),
                           ],

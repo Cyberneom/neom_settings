@@ -5,10 +5,11 @@ import 'package:neom_commons/ui/theme/app_theme.dart';
 import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/ui/widgets/header_widget.dart';
 import 'package:neom_commons/ui/widgets/title_subtitle_row.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
 import 'package:neom_core/app_config.dart';
 import 'package:neom_core/app_properties.dart';
 
+import '../utils/constants/setting_translation_constants.dart';
 import 'settings_controller.dart';
 
 class PrivacyAndTermsPage extends StatelessWidget {
@@ -20,24 +21,24 @@ class PrivacyAndTermsPage extends StatelessWidget {
     return GetBuilder<SettingsController>(
       builder: (_) => Scaffold(
         backgroundColor: AppColor.main50,
-        appBar: AppBarChild(title: AppTranslationConstants.privacyAndPolicy.tr),
+        appBar: AppBarChild(title: SettingTranslationConstants.privacyAndPolicy.tr),
         body: Container(
           decoration: AppTheme.appBoxDecoration,
           child: Column(
             children: <Widget>[
               HeaderWidget(AppTranslationConstants.legal.tr),
               TitleSubtitleRow(
-                AppTranslationConstants.termsOfService.tr,
+                SettingTranslationConstants.termsOfService.tr,
                 showDivider: true,
                 url: AppProperties.getTermsOfServiceUrl(),
               ),
               TitleSubtitleRow(
-                AppTranslationConstants.privacyPolicy.tr,
+                SettingTranslationConstants.privacyPolicy.tr,
                 showDivider: true,
                 url: AppProperties.getPrivacyPolicyUrl(),
               ),
               TitleSubtitleRow(
-                AppTranslationConstants.legalNotices.tr,
+                  SettingTranslationConstants.legalNotices.tr,
                 showDivider: true,
                 onPressed: () =>
                     Navigator.of(context).push(

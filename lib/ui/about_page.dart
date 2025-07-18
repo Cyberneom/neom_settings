@@ -5,9 +5,11 @@ import 'package:neom_commons/ui/theme/app_theme.dart';
 import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/ui/widgets/header_widget.dart';
 import 'package:neom_commons/ui/widgets/title_subtitle_row.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/common_translation_constants.dart';
 import 'package:neom_core/app_properties.dart';
 
+import '../utils/constants/setting_translation_constants.dart';
 import 'settings_controller.dart';
 
 class AboutPage extends StatelessWidget {
@@ -19,18 +21,18 @@ class AboutPage extends StatelessWidget {
     return GetBuilder<SettingsController>(
       builder: (_) => Scaffold(
         backgroundColor: AppColor.main50,
-        appBar: AppBarChild(title: AppTranslationConstants.aboutApp.tr),
+        appBar: AppBarChild(title: CommonTranslationConstants.aboutApp.tr),
         body: Container(
           decoration: AppTheme.appBoxDecoration,
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
               HeaderWidget(
-                AppTranslationConstants.help.tr,
+                SettingTranslationConstants.help.tr,
                 secondHeader: true,
               ),
               TitleSubtitleRow(
-                AppTranslationConstants.helpCenter.tr,
+                SettingTranslationConstants.helpCenter.tr,
                 vPadding: 0,
                 showDivider: false,
                 url: AppProperties.getWebContact(),
@@ -42,20 +44,20 @@ class AboutPage extends StatelessWidget {
                   url: AppProperties.getLandingPageUrl(),
               ),
               TitleSubtitleRow(
-                  AppTranslationConstants.blog,
+                SettingTranslationConstants.blog,
+                showDivider: true,
+                url: AppProperties.getBlogUrl(),
+              ),
+              HeaderWidget(SettingTranslationConstants.developer.tr),
+              TitleSubtitleRow(
+                  SettingTranslationConstants.github,
                   showDivider: true,
-                  url: AppProperties.getBlogUrl(),
-              ),
-              HeaderWidget(AppTranslationConstants.developer.tr),
-              TitleSubtitleRow(
-                AppTranslationConstants.github,
-                showDivider: true,
-                url: AppProperties.getDevGithub()
+                  url: AppProperties.getDevGithub()
               ),
               TitleSubtitleRow(
-                AppTranslationConstants.linkedin,
-                showDivider: true,
-                url: AppProperties.getDevLinkedIn()
+                  SettingTranslationConstants.linkedin,
+                  showDivider: true,
+                  url: AppProperties.getDevLinkedIn()
               ),
             ],
           ),

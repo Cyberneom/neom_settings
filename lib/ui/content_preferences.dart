@@ -7,12 +7,14 @@ import 'package:neom_commons/ui/widgets/appbar_child.dart';
 import 'package:neom_commons/ui/widgets/header_widget.dart';
 import 'package:neom_commons/ui/widgets/title_subtitle_row.dart';
 import 'package:neom_commons/utils/app_alerts.dart';
+import 'package:neom_commons/utils/app_locale_utilities.dart';
 import 'package:neom_commons/utils/constants/app_locale_constants.dart';
 import 'package:neom_commons/utils/constants/app_page_id_constants.dart';
-import 'package:neom_commons/utils/constants/app_translation_constants.dart';
+import 'package:neom_commons/utils/constants/translations/app_translation_constants.dart';
 import 'package:neom_core/utils/constants/app_route_constants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../utils/constants/setting_translation_constants.dart';
 import 'settings_controller.dart';
 
 class ContentPreferencePage extends StatelessWidget {
@@ -25,7 +27,7 @@ class ContentPreferencePage extends StatelessWidget {
       init: SettingsController(),
       id: AppPageIdConstants.settingsPrivacy,
       builder: (_) => Scaffold(
-        appBar: AppBarChild(title: AppTranslationConstants.contentPreferences.tr),
+        appBar: AppBarChild(title: SettingTranslationConstants.contentPreferences.tr),
         backgroundColor: AppColor.main50,
         body: Container(
         decoration: AppTheme.appBoxDecoration,
@@ -34,15 +36,15 @@ class ContentPreferencePage extends StatelessWidget {
           children: <Widget>[
             HeaderWidget(AppTranslationConstants.language.tr, secondHeader: true),
             TitleSubtitleRow(
-                AppTranslationConstants.preferredLanguage.tr,
-                subtitle: AppLocaleConstants.languageFromLocale(Get.locale!).tr,
+                SettingTranslationConstants.preferredLanguage.tr,
+                subtitle: AppLocaleUtilities.languageFromLocale(Get.locale!).tr,
                 onPressed: () => Alert(
                   context: context,
                   style: AlertStyle(
                       backgroundColor: AppColor.main50,
                       titleStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
                   ),
-                  title: AppTranslationConstants.chooseYourLanguage.tr,
+                  title: SettingTranslationConstants.chooseYourLanguage.tr,
                   content: Obx(()=> DropdownButton<String>(
                         items: AppLocaleConstants.supportedLanguages.map<DropdownMenuItem<String>>((String language) {
                           return DropdownMenuItem<String>(
@@ -79,20 +81,20 @@ class ContentPreferencePage extends StatelessWidget {
                 ).show()
             ),
             HeaderWidget(AppTranslationConstants.safety.tr, secondHeader: true),
-            TitleSubtitleRow('${AppTranslationConstants.locationUsage.tr}: ${_.locationPermission.value.name.tr}',
+            TitleSubtitleRow('${SettingTranslationConstants.locationUsage.tr}: ${_.locationPermission.value.name.tr}',
               onPressed: () async {
                 //Get.toNamed(GigRouteConstants.INTRO_REQUIRED_PERMISSIONS);
                 _.locationPermission.value == LocationPermission.denied ?
                   await _.verifyLocationPermission()
-                  : AppAlerts.showAlert(context, title: AppTranslationConstants.locationUsage.tr,
-                    message: AppTranslationConstants.changeThisInTheAppSettings.tr.tr);
+                  : AppAlerts.showAlert(context, title: SettingTranslationConstants.locationUsage.tr,
+                    message: SettingTranslationConstants.changeThisInTheAppSettings.tr.tr);
               }
             ),
-            TitleSubtitleRow(AppTranslationConstants.blockedProfiles.tr,
+            TitleSubtitleRow(SettingTranslationConstants.blockedProfiles.tr,
               onPressed: () => _.userController.profile.blockTo!.isNotEmpty
                   ? Get.toNamed(AppRouteConstants.blockedProfiles, arguments: _.userController.profile.blockTo)
-                  : AppAlerts.showAlert(context, title: AppTranslationConstants.blockedProfiles.tr,
-                      message: AppTranslationConstants.blockedProfilesMsg.tr),
+                  : AppAlerts.showAlert(context, title: SettingTranslationConstants.blockedProfiles.tr,
+                      message: SettingTranslationConstants.blockedProfilesMsg.tr),
             ),
             ],
           ),
